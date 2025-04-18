@@ -1,21 +1,23 @@
+clear all; clc; 
+
 func_name = '%s_ses-01_task-restxinscapes_acq-mepi_run-01_space-T1w_desc-preproc_bold.nii.gz';
 anat_name = '%s_ses-01_task-restxinscapes_acq-mepi_run-01_space-T1w_desc-aparcaseg_dseg.nii.gz';
 
-subjectDir = 'C:\Users\STF-Collective\Documents\CHN-STF_BIDS\average_again\subjectDir';
+subjectDir = 'E:\CHN-STF_BIDS\derivatives\fmriprep';
 funcPath = '\ses-01\func';
 
 
-workingDir = 'C:\Users\STF-Collective\Documents\CHN-STF_BIDS\average_again';
+workingDir = 'E:\CHN-STF_BIDS\derivatives\data_manage';
 addpath(workingDir)
-outputDir =  'C:\Users\STF-Collective\Documents\CHN-STF_BIDS\average_again\output';
+outputDir =  'E:\CHN-STF_BIDS\derivatives\average_fmri';
 outputName = '%s.mat';
 
-seg = readtable("desc-aparcaseg_dseg.tsv", "FileType","delimitedtext", "Delimiter", "	")
+seg = readtable(fullfile(subjectDir, 'desc-aseg_dseg.tsv'), "FileType","delimitedtext", "Delimiter", "	");
 
 %% Create a list of subject that has not been processed
-
-subList = struct2table(dir(subjectDir)).name;
-subList = subList(find(startsWith(subList, "sub")));
+fileList = dir(subjectDir);
+subList = struct2table(fileList).name;
+subList = subList(find(startsWith(subList, "sub") & struct2table(fileList).isdir));
 
 toSkip = struct2table(dir(outputDir)).name;
 toSkip = toSkip(find(startsWith(toSkip, "sub")));
