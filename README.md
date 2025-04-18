@@ -1,2 +1,7 @@
-# functionalConnectivities
-Find the average activities of each regions at each timepoint for each participants. Calculate the correlation of selected regions' activity and the correlation between that and a survey variable
+- averageTimeseries.m
+    - Calculate the average activity of each region at each time point. Generate a .mat file for each participants that include a struct object with a list of brain regions and their activity time series. Will skip participants that were already processed
+    - getTimeSeries.m - return a table containing the average activities over time for each region of one participant.
+    - makeStruct.m - process the time series table into a struct with region name and indices
+- find_correlation.m
+    - Example script that calculate the correlation between the time series of two brain regions, and the correlation between the functional connectivity and a survey variable
+    - E:\CHN-STF_BIDS\derivatives\correlation\get_correlation.m is the helper function used in find_correlation.m.
